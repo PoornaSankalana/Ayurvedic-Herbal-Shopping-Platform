@@ -21,12 +21,12 @@
 	min-height: 85vh;
 }
 
-.row {
+.rgisterRow {
 	width: 900px;
 	height: 550px;
 	border-radius: 10px;
 	background: #ececec;
-	box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
+	/* box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2); */
 }
 
 .side-image-register {
@@ -139,7 +139,7 @@ i {
 
 .submit:hover {
 	/* background: rgba(11, 60, 93, 1); */
-	background: #1b851f;
+	background: #e94560;
 	color: #fff;
 }
 

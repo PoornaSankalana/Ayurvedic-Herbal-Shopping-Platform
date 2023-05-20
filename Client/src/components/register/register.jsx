@@ -13,8 +13,14 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	const options = [
-		{ label: "Male", value: "male" },
-		{ label: "Female", value: "female" },
+		{ label: "Male", value: "Male" },
+		{ label: "Female", value: "Female" },
+	];
+
+	const options1 = [
+		{ label: "User", value: "user" },
+		{ label: "Supplier", value: "supplier" },
+		{ label: "Admin", value: "admin" },
 	];
 
 	const initialValues = {
@@ -24,15 +30,20 @@ const Register = () => {
 		mobile: "",
 		nic: "",
 		address: "",
+		url: "",
 		password: "",
 		confirmPassword: "",
 	};
 
 	const [formValues, setFormValues] = useState(initialValues);
-	const [gender, setGender] = useState("male");
+	const [gender, setGender] = useState("Male");
 	const [dob, setDob] = useState("");
 	const [message, setMessage] = useState({});
 	const [isSubmit, setIsSubmit] = useState(false);
+	const [image, setImage] = useState(false);
+	const [userRole, setUserRole] = useState("user");
+
+	const login = localStorage.getItem("login");
 
 	function isObjEmpty(obj) {
 		return Object.keys(obj).length === 0;
@@ -44,6 +55,10 @@ const Register = () => {
 
 	const onChange = ({ target: { value } }) => {
 		setGender(value);
+	};
+
+	const onChange1 = ({ target: { value } }) => {
+		setUserRole(value);
 	};
 
 	const handleChange = (e) => {
@@ -71,17 +86,27 @@ const Register = () => {
 				nic: formValues.nic,
 				dob: dateofBirth,
 				gender: gender,
+				url: formValues.url,
 				address: formValues.address,
+				role: userRole,
 				password: formValues.password,
 			};
 
 			try {
 				await axios.post("api/auth/user", data).then((res) => {
-					toast.success(res.data.message);
-					setInterval(() => {
-						navigate("/");
-						window.location.reload();
-					}, 1700);
+					if (login) {
+						toast.success(res.data.message);
+						setInterval(() => {
+							navigate("/admin/users");
+							window.location.reload();
+						}, 1700);
+					} else {
+						toast.success(res.data.message);
+						setInterval(() => {
+							navigate("/auth/login");
+							// window.location.reload();
+						}, 1700);
+					}
 				});
 			} catch (error) {
 				if (
@@ -92,6 +117,40 @@ const Register = () => {
 					toast.error(error.response.data.message);
 				}
 			}
+		}
+	};
+
+	const handleImage = async (e) => {
+		e.preventDefault();
+
+		try {
+			const file = e.target.files[0];
+			if (!file) return alert("File not exist.");
+			if (file.size > 1024 * 1024)
+				// 1mb
+				return alert("Size too large!");
+			if (file.type !== "image/jpeg" && file.type !== "image/png")
+				// 1mb
+				return alert("File format is incorrect.");
+			let formData = new FormData();
+			formData.append("file", file);
+
+			const res = await axios.post(
+				"http://localhost:5000/api/user/profilePicture",
+				formData,
+				{
+					headers: {
+						"content-type": "multipart/form-data",
+					},
+				},
+			);
+			setImage(res.data.url);
+			setFormValues({
+				...formValues,
+				url: res.data.url,
+			});
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -137,22 +196,24 @@ const Register = () => {
 	// 	}
 	// }, [message]);
 
+	const role = localStorage.getItem("role");
+
 	return (
 		<div className="wrapper">
 			<div className="container main">
-				<div className="row" style={{ backgroundColor: "white" }}>
+				<div
+					className="row rgisterRow"
+					style={{ backgroundColor: "white" }}>
 					<header
 						className="h2"
-						style={{ boxShadow: "none", marginTop: "25px" }}>
+						style={{ boxShadow: "none", marginTop: "15px" }}>
 						User Register
 					</header>
 					<div className="col-md-6 side-image-register right">
 						<form
 						// onSubmit={handleSubmit}
 						>
-							<div
-								className="input-box"
-								style={{ marginBottomn: "100px" }}>
+							<div className="input-box">
 								{/* first name */}
 								<div className="input-field">
 									<input
@@ -165,7 +226,7 @@ const Register = () => {
 										value={formValues.firstname}
 										onChange={handleChange}
 										style={{
-											marginBottom: "1px",
+											marginBottom: "0px",
 										}}
 									/>
 									<label for="firstname">
@@ -174,7 +235,7 @@ const Register = () => {
 									</label>
 									<p
 										style={{
-											marginBottom: "5px",
+											marginBottom: "0px",
 											fontSize: "12px",
 											color: "red",
 											display: "flex",
@@ -196,7 +257,7 @@ const Register = () => {
 										value={formValues.lastname}
 										onChange={handleChange}
 										style={{
-											marginBottom: "1px",
+											marginBottom: "0px",
 										}}
 									/>
 									<label for="lastname">
@@ -205,7 +266,7 @@ const Register = () => {
 									</label>
 									<p
 										style={{
-											marginBottom: "5px",
+											marginBottom: "0px",
 											fontSize: "12px",
 											color: "red",
 											display: "flex",
@@ -227,13 +288,13 @@ const Register = () => {
 										value={formValues.email}
 										onChange={handleChange}
 										style={{
-											marginBottom: "1px",
+											marginBottom: "0px",
 										}}
 									/>
 									<label for="email"> Email </label>
 									<p
 										style={{
-											marginBottom: "5px",
+											marginBottom: "0px",
 											fontSize: "12px",
 											color: "red",
 											display: "flex",
@@ -254,13 +315,13 @@ const Register = () => {
 										value={formValues.mobile}
 										onChange={handleChange}
 										style={{
-											marginBottom: "1px",
+											marginBottom: "0px",
 										}}
 									/>
 									<label for="mobile"> Mobile </label>
 									<p
 										style={{
-											marginBottom: "5px",
+											marginBottom: "0px",
 											fontSize: "12px",
 											color: "red",
 											display: "flex",
@@ -287,7 +348,7 @@ const Register = () => {
 									<label for="nic"> NIC </label>
 									<p
 										style={{
-											marginBottom: "5px",
+											marginBottom: "0px",
 											fontSize: "12px",
 											color: "red",
 											display: "flex",
@@ -302,7 +363,7 @@ const Register = () => {
 									<ConfigProvider
 										theme={{
 											token: {
-												colorPrimary: "#1b851f",
+												colorPrimary: "#e94560",
 											},
 										}}>
 										<Space
@@ -331,6 +392,23 @@ const Register = () => {
 										</Space>
 									</ConfigProvider>
 								</div>
+								<div className="input-field">
+									<label
+										className="form-label"
+										for="proPic">
+										Profile Picture
+									</label>
+									<input
+										class="form-control form-control-sm"
+										id="formFileSm"
+										type="file"
+										onChange={handleImage}
+										style={{
+											marginTop: "35px",
+											marginBottom: "40px",
+										}}
+									/>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -353,7 +431,7 @@ const Register = () => {
 								<ConfigProvider
 									theme={{
 										token: {
-											colorPrimary: "#1b851f",
+											colorPrimary: "#e94560",
 										},
 									}}>
 									<Radio.Group
@@ -369,11 +447,54 @@ const Register = () => {
 											justifyContent: "start",
 											alignItems: "start",
 											alignContent: " start",
-											color: "#1b851f",
+											color: "#e94560",
 										}}
 									/>
 								</ConfigProvider>
 							</div>
+							{/* user role */}
+							{role === "admin" ? (
+								<div className="input-box">
+									<label
+										for="gender"
+										style={{
+											display: "flex",
+											justifyContent: "start",
+											alignItems: "start",
+											alignContent: " start",
+											marginBottom: "10px",
+										}}>
+										{" "}
+										User Role{" "}
+									</label>
+									<ConfigProvider
+										theme={{
+											token: {
+												colorPrimary: "#e94560",
+											},
+										}}>
+										<Radio.Group
+											options={options1}
+											onChange={onChange1}
+											value={userRole}
+											name="gender"
+											optionType="button"
+											buttonStyle="solid"
+											style={{
+												marginBottom: "25px",
+												display: "flex",
+												justifyContent: "start",
+												alignItems: "start",
+												alignContent: " start",
+												color: "#e94560",
+											}}
+										/>
+									</ConfigProvider>
+								</div>
+							) : (
+								<></>
+							)}
+
 							{/* address */}
 							<div className="input-field">
 								<input
@@ -463,17 +584,21 @@ const Register = () => {
 									onClick={handleSubmit}
 								/>
 							</div>
-							<div
-								className="signin"
-								style={{
-									marginTop: "10px",
-									marginBottom: "30px",
-								}}>
-								<span>
-									Already have an account ?
-									<a href="/auth/login"> Login </a>
-								</span>
-							</div>
+							{login ? (
+								<></>
+							) : (
+								<div
+									className="signin"
+									style={{
+										marginTop: "10px",
+										marginBottom: "30px",
+									}}>
+									<span>
+										Already have an account ?
+										<a href="/auth/login"> Login </a>
+									</span>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>

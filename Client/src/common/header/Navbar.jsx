@@ -8,6 +8,12 @@ const Navbar = () => {
 	const name = localStorage.getItem("FName");
 	const logged = localStorage.getItem("login");
 
+	const role = localStorage.getItem("role");
+
+	const id = localStorage.getItem("_id");
+
+	console.log("role - ", role);
+
 	return (
 		<>
 			<header className="header">
@@ -20,33 +26,6 @@ const Navbar = () => {
 							Categories
 							<i className="fa fa-chevron-down"></i>
 						</h6> */}
-						<ul>
-							{!logged ? (
-								<li></li>
-							) : (
-								<li
-									style={{
-										backgroundColor: "#1b851f",
-										color: "white",
-										paddingLeft: "40px",
-										paddingRight: "40px",
-										paddingBottom: "30px",
-										height: "53px",
-										fontSize: "14px",
-										borderRadius: "50px",
-										marginRight: "250px",
-									}}>
-									Welcome{" "}
-									<Link
-										to="#"
-										style={{ color: "white" }}>
-										<p className="account">
-											{name} !{" "}
-										</p>
-									</Link>
-								</li>
-							)}
-						</ul>
 					</div>
 
 					<div className="navlink">
@@ -58,24 +37,56 @@ const Navbar = () => {
 							}
 							onClick={() => setMobileMenu(false)}>
 							{/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
+							{role === "user" ? (
+								<li>
+									<Link to="/">home</Link>
+								</li>
+							) : (
+								<></>
+							)}
+
+							{role === "admin" ? (
+								<li>
+									<Link to="/admin">home</Link>
+								</li>
+							) : (
+								<></>
+							)}
+
+							{role === "supplier" ? (
+								<li>
+									<Link to="/seller">home</Link>
+								</li>
+							) : (
+								<></>
+							)}
+
+							{role === null ? (
+								<li>
+									<Link to="/">home</Link>
+								</li>
+							) : (
+								<></>
+							)}
+
 							<li>
-								<Link to="/">home</Link>
+								<Link to="/about">About</Link>
 							</li>
 							<li>
-								<Link to="/pages">pages</Link>
+								<Link to="/contact">Contact</Link>
 							</li>
-							<li>
-								<Link to="/user">user account</Link>
-							</li>
-							<li>
-								<Link to="/vendor">vendor account</Link>
-							</li>
-							<li>
-								<Link to="/track">track my order</Link>
-							</li>
-							<li>
-								<Link to="/contact">contact</Link>
-							</li>
+							{/* <li>
+								<Link to="/products">Products</Link>
+							</li> */}
+							{!logged ? (
+								<li></li>
+							) : (
+								<li>
+									<Link to={`/user/${id}`}>
+										<p className="account">{name}</p>
+									</Link>
+								</li>
+							)}
 						</ul>
 
 						<button

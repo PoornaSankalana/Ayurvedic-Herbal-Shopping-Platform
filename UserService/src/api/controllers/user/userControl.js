@@ -110,19 +110,47 @@ const filterUserByEmail = async (req, res) => {
 
 const filterUserByIsActive = async (req, res) => {
 	try {
-		let { searchFilter } = req.body;
+		// let { searchFilter } = req.body;
+
+		console.log(req.body);
 
 		let UserViewModel = [];
 
-		if (searchFilter) {
-			UserViewModel = await User.find({
-				email: { $regex: searchFilter, $options: "i" },
-			});
-		} else {
-			UserViewModel = await User.find();
-		}
+		UserViewModel = await User.find({
+			isActive: false,
+		});
 
 		res.status(200).json({ data: UserViewModel });
+	} catch (error) {
+		return res.status(400).json({ message: "Server Error !" });
+	}
+};
+
+const updateIsActive = async (req, res) => {
+	try {
+		const paramsID = req.params.id;
+
+		const { isActive } = req.body;
+
+		if (isActive) {
+			const updatedUser = await User.findByIdAndUpdate(paramsID, {
+				isActive: isActive,
+			});
+
+			return res.status(200).json({
+				data: updatedUser,
+				message: "User Account Activated !",
+			});
+		} else {
+			const updatedUser = await User.findByIdAndUpdate(paramsID, {
+				isActive: isActive,
+			});
+
+			return res.status(200).json({
+				data: updatedUser,
+				message: "User Account Deactivated !",
+			});
+		}
 	} catch (error) {
 		return res.status(400).json({ message: "Server Error !" });
 	}
@@ -135,4 +163,5 @@ module.exports = {
 	deleteUser,
 	filterUserByEmail,
 	filterUserByIsActive,
+	updateIsActive,
 };

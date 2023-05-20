@@ -55,7 +55,11 @@ const Categories = () => {
 				{data.map((value, index) => {
 					return (
 						<div className="box f_flex" key={index}>
-							<img src={value.cateImg} alt="" />
+							<img
+								src={value.cateImg}
+								alt=""
+								className="img"
+							/>
 							<span> {value.cateName} </span>{" "}
 						</div>
 					);

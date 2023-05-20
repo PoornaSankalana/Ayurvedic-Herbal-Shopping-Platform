@@ -32,10 +32,23 @@ const Login = () => {
 						" " +
 						res.data.userData.lastname,
 				);
+				localStorage.setItem("image", res.data.userData.url);
 
-				if (res.data.Role) {
+				localStorage.setItem("role", res.data.Role);
+
+				if (res.data.Role === "admin") {
+					setInterval(() => {
+						navigate("/admin");
+						window.location.reload();
+					}, 1700);
+				} else if (res.data.Role === "user") {
 					setInterval(() => {
 						navigate("/");
+						window.location.reload();
+					}, 1700);
+				} else if (res.data.Role === "supplier") {
+					setInterval(() => {
+						navigate("/seller");
 						window.location.reload();
 					}, 1700);
 				}
@@ -54,7 +67,7 @@ const Login = () => {
 	return (
 		<div className="wrapper">
 			<div className="container main">
-				<div className="row">
+				<div className="row rowLogin">
 					<div className="col-md-6 side-image">
 						<div className="image-overlay">
 							<div className="text">
@@ -127,7 +140,7 @@ const Login = () => {
 							<div className="signin">
 								<span>
 									Don 't have an account?
-									<a href="#"> Register </a>
+									<a href="/auth/register"> Register </a>
 								</span>
 							</div>
 						</div>

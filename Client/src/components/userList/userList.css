@@ -1,0 +1,136 @@
+.view {
+	background-color: transparent;
+	border: solid 1px #5ebc67;
+	color: #5ebc67;
+	font-weight: 900;
+}
+
+.view:hover {
+	background-color: #5ebc67;
+	color: white;
+	border: solid 1px #5ebc67;
+	font-weight: 900;
+}
+
+.update {
+	background-color: transparent;
+	color: #ffc107;
+	border: solid 1px #ffc107;
+	font-weight: 900;
+}
+
+.update:hover {
+	background-color: #ffc107;
+	color: white;
+	border: solid 1px #ffc107;
+	font-weight: 900;
+}
+
+.delete {
+	background-color: transparent;
+	color: #d11a2a;
+	border: solid 1px #d11a2a;
+	font-weight: 900;
+}
+
+.delete:hover {
+	background-color: #d11a2a;
+	color: white;
+	border: solid 1px #d11a2a;
+	font-weight: 900;
+}
+
+.search {
+	font-weight: 900;
+	padding: 6px 10px;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	background-color: #ffeef1;
+}
+
+.form-check-input:active::after {
+	background-color: #d11a2a;
+}
+
+.switch {
+	--circle-dim: 0.5em;
+	font-size: 17px;
+	position: relative;
+	display: inline-block;
+	width: 2em;
+	height: 1em;
+}
+
+/* Hide default HTML checkbox */
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+
+.slide {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #f5aeae;
+	transition: 0.4s;
+	border-radius: 30px;
+}
+
+.slide-card {
+	position: absolute;
+	content: "";
+	height: var(--circle-dim);
+	width: var(--circle-dim);
+	border-radius: 20px;
+	left: 0.3em;
+	bottom: 0.3em;
+	transition: 0.4s;
+	pointer-events: none;
+}
+
+.slide-card-face {
+	position: absolute;
+	inset: 0;
+	backface-visibility: hidden;
+	perspective: 500px;
+	border-radius: 50%;
+	transition: 0.4s transform;
+}
+
+.slide-card-front {
+	background-color: #dc3535;
+}
+
+.slide-card-back {
+	background-color: #379237;
+	transform: rotateY(180deg);
+}
+
+input:checked ~ .slide-card .slide-card-back {
+	transform: rotateY(0);
+}
+
+input:checked ~ .slide-card .slide-card-front {
+	transform: rotateY(-180deg);
+}
+
+input:checked ~ .slide-card {
+	transform: translateX(1em);
+}
+
+input:checked ~ .slide {
+	background-color: #9ed99c;
+}
+
+.datePicker {
+	z-index: 1055;
+}

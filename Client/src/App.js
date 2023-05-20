@@ -9,7 +9,6 @@ import Footer from "./common/footer/Footer";
 import Sdata from "./components/shops/Sdata";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
-import "antd/dist/reset.css";
 import SellerDashboard from "./pages/SellerDashboard";
 import AddProduct from "./pages/AddProduct";
 import UpdateProduct from "./pages/UpdateProduct";
@@ -18,6 +17,12 @@ import AdminDashboard from "./pages/AdminDashboard";
 import OrdersTable from "./pages/NewOrders";
 import ProductView from "./pages/ProductView";
 import PaymentSuccessPage from "./pages/AddPayment";
+import Profile from "./components/profile/profile.jsx";
+import UserList from "./components/userList/userList";
+import "react-tooltip/dist/react-tooltip.css";
+import "antd/dist/reset.css";
+import Contact from "./common/contact/contact";
+import About from "./common/about/about";
 
 function App() {
 	/*
@@ -27,6 +32,7 @@ function App() {
   Step 2 : item lai cart ma halne using useState
   ==> CartItem lai pass garre using props from  <Cart CartItem={CartItem} /> ani import garrxa in cartItem ma
  import Login from './components/login copy/login';
+import UserList from './components/userList/userList';
 
   Step 3 :  chai flashCard ma xa button ma
 
@@ -94,6 +100,9 @@ function App() {
 			);
 		}
 	};
+
+	const role = localStorage.getItem("role");
+	const login = localStorage.getItem("login");
 
 	return (
 		<Router>
@@ -177,17 +186,21 @@ function App() {
 					addToCart={addToCart}
 					decreaseQty={decreaseQty}
 				/>{" "}
-				<Route
-					path="/admin"
-					element={
-						<AdminDashboard
-							productItems={productItems}
-							shopItems={shopItems}
-						/>
-					}
-				/>{" "}
 				<Route path="/newOrders" element={<OrdersTable />} />{" "}
+				<Route path="/contact" element={<Contact />} />
+				<Route path="/about" element={<About />} />
 				{/* <Route path='/productDetails/:id' element={<ProductDetails/>}/> */}{" "}
+				<Route path="/user/:id" element={<Profile />} />{" "}
+				{login && role === "admin" ? (
+					<>
+						<Route
+							path="/admin/users"
+							element={<UserList />}
+						/>{" "}
+					</>
+				) : (
+					<> </>
+				)}{" "}
 			</Routes>{" "}
 			<Footer />
 		</Router>

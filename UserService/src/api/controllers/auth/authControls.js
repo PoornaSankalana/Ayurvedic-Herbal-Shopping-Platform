@@ -21,12 +21,14 @@ const register = async (req, res) => {
 			firstname: req.body.firstname,
 			lastname: req.body.lastname,
 			email: req.body.email,
-			phoneNumber: req.body.phoneNumber,
+			mobile: req.body.mobile,
 			nicType: req.body.nicType,
 			nic: req.body.nic,
 			dob: req.body.dob,
 			gender: req.body.gender,
 			address: req.body.address,
+			role: req.body.role,
+			url: req.body.url,
 			password: hashPassword,
 		});
 
@@ -40,6 +42,7 @@ const register = async (req, res) => {
 			req.body.dob === "" ||
 			req.body.gender === "" ||
 			req.body.address === "" ||
+			req.body.url === "" ||
 			req.body.password === ""
 		) {
 			return res
@@ -106,7 +109,25 @@ const login = async (req, res) => {
 	}
 };
 
+const logout = async (req, res) => {
+	// const refreashToken = req.params.authToken;
+
+	localstorage.clear();
+
+	try {
+		// refreashTokens = refreashTokens.filter(
+		// 	(token) => token !== refreashToken,
+		// );
+		res.status(200).json({
+			message: "You are logged out successfully",
+		});
+	} catch (err) {
+		return res.status(400).send({ message: err });
+	}
+};
+
 module.exports = {
 	register,
 	login,
+	logout,
 };

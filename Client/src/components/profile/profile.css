@@ -1,0 +1,23 @@
+.editBtn {
+	background-color: transparent;
+	border: solid 1px #5ebc67;
+	color: #5ebc67;
+}
+
+.editBtn:hover {
+	background-color: #5ebc67;
+	border: solid 1px #5ebc67;
+	color: #fff;
+}
+
+.resetBtn {
+	border: solid 1px #ce261c;
+	color: #ce261c;
+	background-color: transparent;
+}
+
+.resetBtn:hover {
+	background-color: #ce261c;
+	color: #fff;
+	border: solid 1px #ce261c;
+}

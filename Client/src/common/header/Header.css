@@ -76,7 +76,7 @@
 	height: 20px;
 	border-radius: 50%;
 	text-align: center;
-	background-color: #1b851f;
+	background-color: #e94560;
 	font-size: 12px;
 	color: #fff;
 }
@@ -168,7 +168,7 @@ header ul li a:hover {
 	height: 2px;
 	bottom: 15px;
 	left: 0;
-	background-color: white;
+	background-color: #e94560;
 	transform-origin: bottom right;
 	transition: transform 0.25s ease-out;
 }
@@ -176,6 +176,28 @@ header ul li a:hover {
 .account:hover::after {
 	transform: scaleX(1);
 	transform-origin: bottom left;
+}
+
+.avatar {
+	width: 40px;
+	height: 40px;
+	margin-top: 8px;
+	border-radius: 50%;
+	position: initial;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.avatar:hover {
+	/* border: solid 3px #53a65b; */
+	-moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+	cursor: pointer;
 }
 
 @media (max-width: 768px) {
