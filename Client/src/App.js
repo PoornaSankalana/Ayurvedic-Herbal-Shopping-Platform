@@ -16,10 +16,8 @@ import UpdateProduct from "./pages/UpdateProduct";
 import AddPayment from "./pages/AddPayment";
 import AdminDashboard from "./pages/AdminDashboard";
 import OrdersTable from "./pages/NewOrders";
-import ProductDetails from "./pages/ProductView";
 import ProductView from "./pages/ProductView";
 import PaymentSuccessPage from "./pages/AddPayment";
-// import AddPayment from "./pages/AddPayment";
 
 function App() {
 	/*
@@ -117,7 +115,6 @@ function App() {
 					element={<Register />}
 					exact
 				/>
-
 				<Route
 					path="/cart"
 					element={
@@ -130,14 +127,6 @@ function App() {
 					exact
 				/>
 				<Route path="/auth/login" element={<Login />} exact />
-				<Route path='/seller' element={<SellerDashboard productItems={productItems} shopItems={shopItems} />}/>
-				<Route path='/addproduct' element={<AddProduct />}/>
-				<Route path="/product/view/:id" element={<ProductView addToCart={addToCart}/>} />
-				<Route path='/edit/:id' element={<UpdateProduct />} />
-				<Route path='/addPayment' element={<PaymentSuccessPage />} CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}/>
-				<Route path='/admin' element={<AdminDashboard productItems={productItems} shopItems={shopItems}/>}/>
-				<Route path='/newOrders' element={<OrdersTable/>} />
-				{/* <Route path='/productDetails/:id' element={<ProductDetails/>}/> */}
 				<Route
 					path="/seller"
 					element={
@@ -146,20 +135,59 @@ function App() {
 							shopItems={shopItems}
 						/>
 					}
-				/>
-				<Route path="/addproduct" element={<AddProduct />} />
-				<Route path="/edit/:id" element={<UpdateProduct />} />
+				/>{" "}
+				<Route path="/addproduct" element={<AddProduct />} />{" "}
+				<Route path="/edit/:id" element={<UpdateProduct />} />{" "}
 				<Route
 					path="/addPayment"
+					element={<AddPayment />}
+					CartItem={CartItem}
+					addToCart={addToCart}
+					decreaseQty={decreaseQty}
+				/>{" "}
+				<Route
+					path="/admin"
 					element={
-						<AddPayment
-							CartItem={CartItem}
-							addToCart={addToCart}
-							decreaseQty={decreaseQty}
+						<AdminDashboard
+							productItems={productItems}
+							shopItems={shopItems}
 						/>
 					}
+				/>{" "}
+				<Route path="/newOrders" element={<OrdersTable />} />{" "}
+				<Route
+					path="/seller"
+					element={
+						<SellerDashboard
+							productItems={productItems}
+							shopItems={shopItems}
+						/>
+					}
+				/>{" "}
+				<Route path="/addproduct" element={<AddProduct />} />{" "}
+				<Route
+					path="/product/view/:id"
+					element={<ProductView addToCart={addToCart} />}
 				/>
-				{/* <Route path='/productShipping' element={</>}/> */}
+				<Route path="/edit/:id" element={<UpdateProduct />} />{" "}
+				<Route
+					path="/addPayment"
+					element={<PaymentSuccessPage />}
+					CartItem={CartItem}
+					addToCart={addToCart}
+					decreaseQty={decreaseQty}
+				/>{" "}
+				<Route
+					path="/admin"
+					element={
+						<AdminDashboard
+							productItems={productItems}
+							shopItems={shopItems}
+						/>
+					}
+				/>{" "}
+				<Route path="/newOrders" element={<OrdersTable />} />{" "}
+				{/* <Route path='/productDetails/:id' element={<ProductDetails/>}/> */}{" "}
 			</Routes>{" "}
 			<Footer />
 		</Router>
