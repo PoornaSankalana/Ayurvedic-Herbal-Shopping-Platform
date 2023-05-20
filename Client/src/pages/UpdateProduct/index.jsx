@@ -21,28 +21,29 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  900: "#003A75",
-};
+// const blue = {
+//   100: "#DAECFF",
+//   200: "#99CCF3",
+//   400: "#3399FF",
+//   500: "#007FFF",
+//   600: "#0072E5",
+//   900: "#003A75",
+// };
 
-const grey = {
-  50: "#f6f8fa",
-  100: "#eaeef2",
-  200: "#d0d7de",
-  300: "#afb8c1",
-  400: "#8c959f",
-  500: "#6e7781",
-  600: "#57606a",
-  700: "#424a53",
-  800: "#32383f",
-  900: "#24292f",
-};
+// const grey = {
+//   50: "#f6f8fa",
+//   100: "#eaeef2",
+//   200: "#d0d7de",
+//   300: "#afb8c1",
+//   400: "#8c959f",
+//   500: "#6e7781",
+//   600: "#57606a",
+//   700: "#424a53",
+//   800: "#32383f",
+//   900: "#24292f",
+// };
 
 // const StyledButton = styled("button")(
 //   ({ theme }) => `
@@ -86,50 +87,50 @@ const grey = {
 //   `
 // );
 
-const StyledListbox = styled("ul")(
-  ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.875rem;
-  box-sizing: border-box;
-  padding: 6px;
-  margin: 12px 0;
-  min-width: 320px;
-  border-radius: 12px;
-  overflow: auto;
-  outline: 0px;
-  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-  box-shadow: 0px 4px 30px ${
-    theme.palette.mode === "dark" ? grey[900] : grey[200]
-  };
-  `
-);
+// const StyledListbox = styled("ul")(
+//   ({ theme }) => `
+//   font-family: IBM Plex Sans, sans-serif;
+//   font-size: 0.875rem;
+//   box-sizing: border-box;
+//   padding: 6px;
+//   margin: 12px 0;
+//   min-width: 320px;
+//   border-radius: 12px;
+//   overflow: auto;
+//   outline: 0px;
+//   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
+//   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+//   color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+//   box-shadow: 0px 4px 30px ${
+//     theme.palette.mode === "dark" ? grey[900] : grey[200]
+//   };
+//   `
+// );
 
 
-const StyledGroupRoot = styled("li")`
-  list-style: none;
-`;
+// const StyledGroupRoot = styled("li")`
+//   list-style: none;
+// `;
 
-const StyledGroupHeader = styled("span")`
-  display: block;
-  padding: 15px 0 5px 10px;
-  font-size: 0.75em;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-  color: ${grey[600]};
-`;
+// const StyledGroupHeader = styled("span")`
+//   display: block;
+//   padding: 15px 0 5px 10px;
+//   font-size: 0.75em;
+//   font-weight: 600;
+//   text-transform: uppercase;
+//   letter-spacing: 0.05rem;
+//   color: ${grey[600]};
+// `;
 
-const StyledGroupOptions = styled("ul")`
-  list-style: none;
-  margin-left: 0;
-  padding: 0;
+// const StyledGroupOptions = styled("ul")`
+//   list-style: none;
+//   margin-left: 0;
+//   padding: 0;
 
-  > li {
-    padding-left: 20px;
-  }
-`;
+//   > li {
+//     padding-left: 20px;
+//   }
+// `;
 
 // const StyledPopper = styled(PopperUnstyled)`
 //   z-index: 1;
@@ -195,6 +196,7 @@ export default function UpdateProduct() {
   const [category, setCategory] = React.useState([]);
   const [image, setImage] = React.useState(false);
   const [isMen, setIsMen] = React.useState(false);
+  const navigate = useNavigate();
   const [product, setProduct] = React.useState({
     name: "",
     price: "",
@@ -269,6 +271,7 @@ export default function UpdateProduct() {
           product
         );
         console.log(res);
+        navigate("/seller")
         toast.success(res.data.message);
       } catch (err) {
         console.log(err);
