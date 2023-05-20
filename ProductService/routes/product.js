@@ -21,4 +21,5 @@ productRoute.post(
     "/api/Product/delete/:id",
     productController.deleteProduct
   );
+  
 export default productRoute

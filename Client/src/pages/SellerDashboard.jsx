@@ -9,27 +9,16 @@ import Annocument from "../components/annocument/Annocument";
 import Wrapper from "../components/wrapper/Wrapper";
 import SellerHome from "../components/SellerMainPage/Home";
 
-const SellerDashboard = ({
-	productItems,
-	addToCart,
-	CartItem,
-	shopItems,
-}) => {
-	return (
-		<>
-			<SellerHome CartItem={CartItem} />
-			<FlashDeals
-				productItems={productItems}
-				addToCart={addToCart}
-			/>
-			{/* <TopCate />
-      <NewArrivals />
-      <Discount />
-      <Shop shopItems={shopItems} addToCart={addToCart} /> */}
-			<Annocument />
-			<Wrapper />
-		</>
-	);
-};
+const SellerDashboard = ({ productItems, addToCart, CartItem, shopItems }) => {
+  return (
+    <>
+      <SellerHome CartItem={CartItem} />
+      <FlashDeals productItems={productItems} addToCart={addToCart} />
+      <TopCate />
+      <Annocument />
+      <Wrapper />
+    </>
+  );
+}
 
 export default SellerDashboard;

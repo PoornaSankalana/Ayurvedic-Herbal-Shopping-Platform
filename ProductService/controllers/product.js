@@ -1,4 +1,36 @@
 import Product from "../models/product.js";
+import nodemailer from 'nodemailer';
+async function sendMail() {
+  
+  let testAccount = await nodemailer.createTestAccount();
+  const transporter = nodemailer.createTransport({
+
+    host: "gmail",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "dilshanlakindu5@gmail.com",
+      pass: "xnptxycbugmsvzbg",
+    },
+  });
+
+  // Create the email message
+  const mailOptions = {
+    from:  '"CMS Back Office 👻" <dilshanlakindu5@gmail.com>',
+    to: 'dilshanlakindu5@gmail.com',
+    subject: 'Email Subject',
+    text: 'Hello, This is a test email.'
+  };
+
+  // Send the email
+  await transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error occurred:', error.message);
+    } else {
+      console.log('Email sent successfully!');
+    }
+  });
+}
 const productController={
 
     // add item to the data base
@@ -17,6 +49,7 @@ const productController={
                 message:"Product Added success",
                 data:newProduct,
             });
+            sendMail()
         } catch (err) {
             return res.status(500).json({ message: err.message });
         }
@@ -30,7 +63,7 @@ const productController={
       return res.status(500).json({ message: err.message });
     }
   },
-  // get all products from the database
+  // get one product from the database
   // getOneProduct: async (req, res) => {
   //   const id = req.params.id;
   //   try {
